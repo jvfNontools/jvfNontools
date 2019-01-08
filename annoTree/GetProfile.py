@@ -13,16 +13,19 @@
 #See the License for the specific language governing permissions and
 #limitations under the License.
 
-import subs.GetArgs
+import sys
+commonPath = sys.path[0] + '/../common'
+sys.path.append(commonPath)
+
+import subs.parseArgs
 import subs.parsSyms
 import subs.parsAnno
 import subs.doFormat
 import subprocess
 import os
 
-import sys
 
-argClass = subs.GetArgs.getArgs()
+argClass = subs.parseArgs.getArgsCom()
 symClass = subs.parsSyms.SearchFileForSyms(argClass.symFile, "symbol__disassemble")
 annoClass = subs.parsAnno.SearchAnnoFile(argClass.annoFile, symClass.symData, argClass.machine)
 subs.doFormat.doFormatOut(annoClass.annoData, argClass.outFile, annoClass.TotalTicks, argClass.machine)
